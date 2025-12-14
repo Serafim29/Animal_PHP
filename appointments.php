@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: public/login.php');
+    exit;
+}
+
 require_once __DIR__ . "/models/appointment.model.php";
 
 $model = new AppointmentModel();
@@ -24,9 +29,17 @@ unset($_SESSION['errors']);
     <div class="container mx-auto mt-8 px-4 py-8">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-4xl font-bold text-white">All Appointments</h1>
-            <a href="index.php" class="px-4 py-2 rounded-md bg-[#00ddff] text-[#1c1c1c] font-bold hover:bg-[#00ccee] transition-colors duration-200">
-                Create New Appointment
-            </a>
+            <div class="flex gap-2">
+                <a href="index.php" class="px-4 py-2 rounded-md bg-[#00ddff] text-[#1c1c1c] font-bold hover:bg-[#00ccee] transition-colors duration-200">
+                    Create New Appointment
+                </a>
+                <a href="public/profile.php" class="px-4 py-2 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors duration-200">
+                    Profile
+                </a>
+                <a href="handlers/handle_logout.php" class="px-4 py-2 rounded-md bg-red-600 text-white font-bold hover:bg-red-700 transition-colors duration-200">
+                    Logout
+                </a>
+            </div>
         </div>
         
         <?php if($success): ?>

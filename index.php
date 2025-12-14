@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: public/login.php');
+    exit;
+}
+
 $success = isset($_SESSION['success']) ? $_SESSION['success'] : null;
 $errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : null;
 
@@ -19,9 +24,17 @@ unset($_SESSION['errors']);
     <div class="container mx-auto mt-8 px-4 py-8">
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-4xl font-bold text-white">Pet Veterinary Appointment</h1>
-            <a href="appointments.php" class="px-4 py-2 rounded-md bg-[#00ddff] text-[#1c1c1c] font-bold hover:bg-[#00ccee] transition-colors duration-200">
-                View All Appointments
-            </a>
+            <div class="flex gap-2">
+                <a href="appointments.php" class="px-4 py-2 rounded-md bg-[#00ddff] text-[#1c1c1c] font-bold hover:bg-[#00ccee] transition-colors duration-200">
+                    View All Appointments
+                </a>
+                <a href="public/profile.php" class="px-4 py-2 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors duration-200">
+                    Profile
+                </a>
+                <a href="handlers/handle_logout.php" class="px-4 py-2 rounded-md bg-red-600 text-white font-bold hover:bg-red-700 transition-colors duration-200">
+                    Logout
+                </a>
+            </div>
         </div>
         <p class="text-white/70 text-center mb-8">Schedule an appointment for your pet</p>
         
